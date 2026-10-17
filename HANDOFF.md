@@ -75,3 +75,6 @@
 - 初始完整源码提交79cc6aae53d8c06ffef5aa4302d97368a34874b1，共91文件；远程tree与本地逐文件对象hash一致（0f30067e7b50228c8223f8c43f79fe59958b9f60）。必要旧版模拟存档已包含，凭据和其他私人轨迹未上传。
 - 通过已连接GitHub API上传并在真实浏览器确认文件和Private标识；本机HTTPS git push尚无登录凭据。远程精确commit对象校验后已同步本地main，原本地初始提交保留于codex/local-import-backup。以后直接git push前需在本机正常登录GitHub，不能把API密钥当Git凭据。
 - P0上传完成，无公开部署或协作者权限变更。P1可选：用户需要命令行推送时完成GitHub常规登录；当前可继续通过已连接工具提交。
+
+## 2026-10-17 改为公开访问
+用户明确要求将当前 GitHub 仓库公开；已将 cosmic-civilizations 的可见性从 Private 改为 Public。当前代码及历史共93个blob经过密钥/敏感配置字段检查，未发现被纳入的凭据文件。未登录API返回private=false，README和Git refs可匿名读取。仓库链接不变：https://github.com/lhy20070526-byte/cosmic-civilizations 。P0公开访问已完成；公开源码不等于应用已部署为在线服务。
