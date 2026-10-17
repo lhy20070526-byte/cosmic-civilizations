@@ -77,4 +77,4 @@
 - P0上传完成，无公开部署或协作者权限变更。P1可选：用户需要命令行推送时完成GitHub常规登录；当前可继续通过已连接工具提交。
 
 ## 2026-10-17 改为公开访问
-用户明确要求将当前 GitHub 仓库公开；已将 cosmic-civilizations 的可见性从 Private 改为 Public。当前代码及历史共93个blob经过密钥/敏感配置字段检查，未发现被纳入的凭据文件。未登录API返回private=false，README和Git refs可匿名读取。仓库链接不变：https://github.com/lhy20070526-byte/cosmic-civilizations 。P0公开访问已完成；公开源码不等于应用已部署为在线服务。
+用户明确要求将当前 GitHub 仓库公开；已将 cosmic-civilizations 的可见性从 Private 改为 Public。当前代码及历史共93个blob经过密钥/敏感配置字段检查，未发现被纳入的凭据文件。浏览器显示Public；README匿名请求返回HTTP 200，Git可匿名读取和拉取。匿名API请求返回403，未作为公开访问验证依据。仓库链接不变：https://github.com/lhy20070526-byte/cosmic-civilizations 。P0公开访问已完成；公开源码不等于应用已部署为在线服务。
