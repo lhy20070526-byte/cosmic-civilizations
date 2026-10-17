@@ -62,3 +62,9 @@
 - Windows 开始/开发/测试 CMD、中文使用说明已补齐。npm test 改为 Node 枚举测试文件，兼容 cmd.exe 不展开通配符的行为。
 - Downloads/cosmic-civilizations-windows-2026-10-17.zip 及同名解压目录；包含全部产品源码、测试、配置、文档、QA辅助源码与必要回归存档，排除凭据/本机缓存/完整私人轨迹。
 - 全新副本 npm ci、88/88测试、构建和HTTP200通过；原生Windows未验，见 WINDOWS-PACKAGE-VALIDATION.md。P0 打包已完成；P1 Windows实机验收需要有Windows设备的执行者运行START-WINDOWS.cmd，失败时保留不含凭据的终端报错以便自动修复。没有发布或上传。
+
+## GitHub 私有仓库上传完成
+- 仓库：https://github.com/lhy20070526-byte/cosmic-civilizations ，可见性 Private，主分支 main。
+- 初始完整源码提交79cc6aae53d8c06ffef5aa4302d97368a34874b1，共91文件；远程tree与本地逐文件对象hash一致（0f30067e7b50228c8223f8c43f79fe59958b9f60）。必要旧版模拟存档已包含，凭据和其他私人轨迹未上传。
+- 通过已连接GitHub API上传并在真实浏览器确认文件和Private标识；本机HTTPS git push尚无登录凭据。远程精确commit对象校验后已同步本地main，原本地初始提交保留于codex/local-import-backup。以后直接git push前需在本机正常登录GitHub，不能把API密钥当Git凭据。
+- P0上传完成，无公开部署或协作者权限变更。P1可选：用户需要命令行推送时完成GitHub常规登录；当前可继续通过已连接工具提交。

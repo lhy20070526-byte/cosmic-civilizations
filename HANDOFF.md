@@ -69,3 +69,9 @@
 
 ## GitHub 私有仓库上传准备
 用户明确选择新建 GitHub 私有仓库 cosmic-civilizations。仅当前项目独立建库，旁边 Railway 部署副本及父目录其他项目不纳入。提交包含完整产品源码、测试、Windows脚本和必要回归模拟存档；凭据、本机缓存和其他运行历史排除。远程结果以最终核验为准。
+
+## GitHub 私有仓库上传完成
+- 仓库：https://github.com/lhy20070526-byte/cosmic-civilizations ，可见性 Private，主分支 main。
+- 初始完整源码提交79cc6aae53d8c06ffef5aa4302d97368a34874b1，共91文件；远程tree与本地逐文件对象hash一致（0f30067e7b50228c8223f8c43f79fe59958b9f60）。必要旧版模拟存档已包含，凭据和其他私人轨迹未上传。
+- 通过已连接GitHub API上传并在真实浏览器确认文件和Private标识；本机HTTPS git push尚无登录凭据。远程精确commit对象校验后已同步本地main，原本地初始提交保留于codex/local-import-backup。以后直接git push前需在本机正常登录GitHub，不能把API密钥当Git凭据。
+- P0上传完成，无公开部署或协作者权限变更。P1可选：用户需要命令行推送时完成GitHub常规登录；当前可继续通过已连接工具提交。
