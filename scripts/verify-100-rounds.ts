@@ -1,0 +1,13 @@
+import { performance } from 'node:perf_hooks';
+import { writeFile } from 'node:fs/promises';
+import { createRun, step } from '../src/server/runtime.js';
+import { exportArchive, importSnapshot, checksum } from '../src/server/snapshot.js';
+const started=performance.now();
+const run=await createRun({ mode:'offline' });
+while(run.status==='running') await step(run);
+if(run.status!=='completed'||run.world.tick!==100)throw new Error(`Incomplete: ${run.status} T${run.world.tick}`);
+const archive=exportArchive(run),restored=importSnapshot(archive);
+if(checksum(restored.world)!==checksum(run.world)||checksum(restored.rngState)!==checksum(run.rngState))throw new Error('Recovery mismatch');
+await writeFile('output/default-100-snapshot.json',JSON.stringify(archive));
+await writeFile('output/default-100-validation.json',JSON.stringify({runId:run.id,seed:run.config.seed,civilizations:run.config.civilizationCount,configuredTicks:run.config.segmentTicks,tick:run.world.tick,status:run.status,alive:run.world.civilizations.filter(c=>c.alive).length,events:run.world.events.length,transits:run.world.transits.length,narratives:run.narratives.length,usedRequests:run.usedRequests,elapsedMs:Math.round(performance.now()-started),worldAndPRNGRecoveryEqual:true},null,2));
+console.log('Default 12 × 100 offline and snapshot recovery verified.');

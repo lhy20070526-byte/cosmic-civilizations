@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-17",
+  "browser": "Playwright real Chromium, 127.0.0.1:4321",
+  "human": {
+    "runId": "ce72a938-1380-4f48-831d-d2f5128ca165",
+    "manualActions": [
+      "broadcast T1",
+      "develop intensity .996 budget 18 T2"
+    ],
+    "refreshPreservedPendingTick": 3,
+    "releaseThenCompletedTick": 6,
+    "calls": 0,
+    "jsonAndMarkdownDownloaded": true,
+    "exportReimportCompleted": true,
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "mobileOverflow": false,
+    "humanGlobalMapCount": 0
+  },
+  "majorAlerts": {
+    "runId": "a8c13459-d6e2-4fb6-9dd4-1bdf3062b539",
+    "fixture": "offline fixed decisions; engine events, not model strategy",
+    "warningTick": 2,
+    "warningEvent": "event-376",
+    "eventDetailVisibleAfterClick": true,
+    "dismissedAbsentAfterMs": 1600,
+    "impactTick": 4,
+    "healthLosses": [
+      68.1,
+      69
+    ],
+    "cooperationDispatchedTick": 5,
+    "extinctionTick": 6,
+    "extinctCountAtTick6": 2,
+    "resetClearsAlerts": true,
+    "mobileOverflow": false,
+    "screenshots": [
+      "playwright/major-alert-mobile.png",
+      "playwright/major-alert-impact.png"
+    ]
+  },
+  "independentMotionEvidence": "astra-human-revision-motion.json",
+  "testCount": 88,
+  "testsFailed": 0,
+  "build": "passed; bundle-size warning 918.22kB",
+  "limitations": [
+    "No physical mobile touch device validation",
+    "Latest 50-civilization sustained rendering performance not verified",
+    "No full real LLM 12x100 run; default 500-request cap unchanged",
+    "Human control means turn-based decisions, not spacecraft piloting"
+  ],
+  "mainAppMotion": {
+    "runId": "c3bd4231-d1f4-40bf-b96c-cedac26ad54d",
+    "speed": 4,
+    "ticks": [
+      22,
+      22,
+      22,
+      23,
+      23,
+      23
+    ],
+    "clockMs": [
+      22750,
+      25084,
+      27317,
+      29584,
+      31814,
+      34050
+    ],
+    "pauseAfterCommit": {
+      "tick": 22,
+      "clockBefore": 22750,
+      "clockAfter": 22750,
+      "intervalMs": 1000,
+      "canvasPixelsEqual": true
+    },
+    "panCameraBefore": "-22.36,10.81,-13.98",
+    "panCameraAfter": "-23.41,10.97,-14.10",
+    "note": "An earlier 900ms-after-pause screenshot pair differed while completing current transaction/snapshot; settled commit was frozen. Two test selector timeouts corrected; no production code change."
+  }
+}

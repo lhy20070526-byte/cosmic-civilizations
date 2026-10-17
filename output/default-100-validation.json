@@ -1,0 +1,15 @@
+{
+  "runId": "bac1863b-27c5-4f7a-8f31-a032835be3f0",
+  "seed": "first-light-42",
+  "civilizations": 12,
+  "configuredTicks": 100,
+  "tick": 100,
+  "status": "completed",
+  "alive": 11,
+  "events": 9349,
+  "transits": 3,
+  "narratives": 1,
+  "usedRequests": 0,
+  "elapsedMs": 137986,
+  "worldAndPRNGRecoveryEqual": true
+}

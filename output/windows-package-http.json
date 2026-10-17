@@ -1,0 +1,9 @@
+{
+  "platform": "darwin",
+  "node": "v24.19.0",
+  "http": 200,
+  "javascriptAsset": 200,
+  "configured": false,
+  "externalRequests": 0,
+  "windowsNativeExecuted": false
+}

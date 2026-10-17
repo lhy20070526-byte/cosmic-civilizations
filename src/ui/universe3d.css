@@ -1,0 +1,50 @@
+.universe3d {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid rgba(142, 177, 237, .18);
+  border-radius: 24px;
+  background: radial-gradient(circle at 51% 34%, rgba(35, 75, 132, .24), transparent 36%), #050914;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .28), inset 0 1px rgba(255, 255, 255, .06);
+  isolation: isolate;
+}
+
+.universe3d-canvas { position: absolute; inset: 0; min-height: 520px; cursor: grab; }
+.universe3d-canvas:active { cursor: grabbing; }
+.universe3d-canvas canvas { display: block; width: 100%; height: 100%; }
+.universe3d-label-layer { position: absolute; z-index: 1; inset: 0; pointer-events: none; overflow: hidden; }
+.universe3d-label { position: absolute; left: 0; top: 0; transform: translate3d(-50%, 0, 0); pointer-events: auto; border: 1px solid rgba(143, 214, 255, .32); border-radius: 999px; padding: 5px 9px; color: #d9efff; background: rgba(7, 16, 36, .75); box-shadow: 0 5px 20px rgba(0, 0, 0, .28); font: 600 11px/1.1 ui-sans-serif, system-ui, sans-serif; letter-spacing: .01em; white-space: nowrap; opacity: 0; transition: border-color .2s ease, color .2s ease, background .2s ease; }
+.universe3d-label:hover, .universe3d-label.is-selected { border-color: rgba(112, 224, 255, .95); color: #fff; background: rgba(17, 56, 91, .9); }
+.universe3d-label.is-dead { border-color: rgba(255, 133, 143, .4); color: #ffc2c7; }
+.universe3d-hud { position: absolute; z-index: 2; inset: 16px 18px auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; pointer-events: none; }
+.universe3d-hud span { padding: 7px 10px; border: 1px solid rgba(152, 188, 244, .16); border-radius: 999px; color: rgba(215, 232, 255, .78); background: rgba(4, 10, 25, .58); font: 600 11px/1.1 ui-sans-serif, system-ui, sans-serif; backdrop-filter: blur(12px); }
+.universe3d-hud .universe3d-layout-note { border-color: rgba(112, 224, 255, .28); color: rgba(178, 229, 255, .9); background: rgba(10, 38, 62, .66); }
+.universe3d-hud .universe3d-communications { border-color: rgba(255, 211, 106, .34); color: rgba(255, 226, 164, .94); background: rgba(62, 42, 18, .7); }
+.universe3d-hud .universe3d-communication-routes { max-width: min(48vw, 520px); overflow: hidden; text-overflow: ellipsis; color: rgba(190, 242, 255, .88); }
+.universe3d-actions { display: flex; gap: 6px; margin-left: auto; pointer-events: auto; }
+.universe3d-actions button { padding: 7px 10px; border: 1px solid rgba(152, 188, 244, .3); border-radius: 999px; color: #dceeff; background: rgba(12, 31, 59, .78); font: 700 11px/1.1 ui-sans-serif, system-ui, sans-serif; cursor: pointer; backdrop-filter: blur(12px); }
+.universe3d-actions button:hover { border-color: rgba(112, 224, 255, .9); background: rgba(17, 56, 91, .92); }
+.universe3d-actions button:disabled { opacity: .45; cursor: default; }
+.universe3d-camera-mode { display: flex; gap: 2px; padding: 2px; border: 1px solid rgba(152, 188, 244, .28); border-radius: 999px; background: rgba(5, 15, 32, .76); }
+.universe3d-camera-mode button { padding: 5px 8px; border: 0; color: rgba(215, 232, 255, .72); background: transparent; font-size: 11px; }
+.universe3d-camera-mode button.is-active, .universe3d-camera-mode button[aria-pressed="true"] { color: #fff; background: rgba(57, 107, 166, .86); }
+.universe3d-camera-mode button:hover { color: #fff; }
+.universe3d-fallback { position: absolute; z-index: 4; inset: 18px; display: grid; align-content: center; justify-items: center; padding: 28px; border: 1px solid rgba(255, 190, 121, .28); border-radius: 18px; color: #f5e6d4; background: rgba(17, 15, 27, .92); text-align: center; }
+.universe3d-fallback strong { font-size: 17px; }
+.universe3d-fallback p { max-width: 440px; margin: 9px 0 18px; color: rgba(250, 232, 214, .74); font-size: 13px; line-height: 1.6; }
+.universe3d-fallback-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); width: min(100%, 620px); gap: 8px; }
+.universe3d-fallback-list button { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid rgba(255, 210, 157, .24); border-radius: 10px; color: #ffe7c7; background: rgba(255, 196, 126, .08); cursor: pointer; }
+.universe3d-fallback-list button:hover { border-color: rgba(255, 210, 157, .72); background: rgba(255, 196, 126, .16); }
+.universe3d-fallback-list span { color: rgba(255, 225, 194, .58); font-size: 11px; }
+
+@media (max-width: 720px) {
+  .universe3d { min-height: 410px; border-radius: 18px; }
+  .universe3d-canvas { min-height: 410px; }
+  .universe3d-hud { inset: 11px 12px auto; }
+  .universe3d-hud .universe3d-camera-hint { display: none; }
+  .universe3d-actions { width: 100%; margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universe3d-label { transition: none; }
+}

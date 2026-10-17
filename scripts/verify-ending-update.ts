@@ -1,0 +1,28 @@
+import {writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {decodeArchive} from '../src/shared/archive.js';
+import {importSnapshot} from '../src/server/snapshot.js';
+import type {RunState} from '../src/shared/types.js';
+const base='http://127.0.0.1:4321';
+async function call(path:string,body?:unknown){const res=await fetch(base+path,body===undefined?undefined:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!res.ok)throw Error('local API status '+res.status);return decodeArchive<RunState>(await res.json());}
+const originalId='877d1071-faaf-462c-a0ad-f319ec0431e8';
+const before=await call('/api/runs/'+originalId);
+const worldBefore=JSON.stringify(before.world);
+console.log('Narrating existing T30 run; previous requests',before.usedRequests);
+const updated=await call('/api/runs/'+originalId+'/narrative',{});
+assert.equal(JSON.stringify(updated.world),worldBefore,'narration cannot alter physics');
+assert.equal(updated.narratives.at(-1)?.source,'llm');
+assert.equal(updated.narratives.length,before.narratives.length+1);
+const exported=await(await fetch(base+'/api/runs/'+originalId+'/export')).json();
+assert.equal(importSnapshot(exported).usedRequests,updated.usedRequests);
+await writeFile('output/ending-updated-real-snapshot.json',JSON.stringify(exported));
+let small=await call('/api/runs',{mode:'llm',civilizationCount:2,segmentTicks:1,seed:'persona-and-ending-20261017',requestLimit:500,failurePolicy:'pause'});
+console.log('Small real verification run:',small.id);
+await writeFile('output/ending-verification-progress.json',JSON.stringify({updatedRunId:updated.id,updatedRequests:updated.usedRequests,smallRunId:small.id},null,2));
+small=await call('/api/runs/'+small.id+'/step',{});
+assert.equal(small.status,'completed',small.error);
+assert.equal(small.narratives.at(-1)?.source,'llm',small.narrativeError);
+const smallExport=await(await fetch(base+'/api/runs/'+small.id+'/export')).json();importSnapshot(smallExport);
+await writeFile('output/ending-small-real-snapshot.json',JSON.stringify(smallExport));
+const result={updatedRun:{id:updated.id,fromTick:updated.narratives.at(-1)?.fromTick,toTick:updated.world.tick,previousRequests:before.usedRequests,usedRequests:updated.usedRequests,addedRequests:updated.usedRequests-before.usedRequests,worldUnchanged:true,narrativeSource:updated.narratives.at(-1)?.source,provider:updated.llmParameters.provider,model:updated.llmParameters.model},smallRun:{id:small.id,status:small.status,tick:small.world.tick,usedRequests:small.usedRequests,personas:small.world.civilizations.map(c=>({name:c.name,values:c.personality.values,tendencies:c.personality.tendencies,source:c.personality.source})),requests:small.requestLog.map(({kind,status,attempts,source})=>({kind,status,attempts,source})),narrativeSource:small.narratives.at(-1)?.source},scope:'Real adapter/persona/decision/narrative validation; this does not prove changed population outcome distribution.'};
+await writeFile('output/ending-real-validation.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));

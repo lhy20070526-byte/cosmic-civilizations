@@ -1,0 +1,14 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {decodeArchive} from '../src/shared/archive.js';
+import type {RunState} from '../src/shared/types.js';
+const id='877d1071-faaf-462c-a0ad-f319ec0431e8';
+const run=decodeArchive<RunState>(await fetch(`http://127.0.0.1:4321/api/runs/${id}`).then(r=>r.json()));
+const before=JSON.parse(await readFile('output/current-run-before-fix.json','utf8'));
+const rows=(await readFile('.local/requests.jsonl','utf8')).trim().split('\n').map(JSON.parse).filter(x=>x.runId===id);
+const retained=before.pendingSuccessfulIds.every((id:string)=>run.requestLog.some(r=>r.id===id&&r.status==='success'));
+const successCivs=before.pendingDecisionIds as string[];
+const repeated=run.requestLog.filter(r=>r.tick===7&&r.kind==='decision'&&successCivs.includes(r.civilizationId??'')&&!before.pendingSuccessfulIds.includes(r.id));
+const decisions=run.history.flatMap(h=>h.decisions);
+const report={recordedAt:new Date().toISOString(),runId:id,provider:run.llmParameters.provider,model:run.llmParameters.model,status:run.status,tick:run.world.tick,mode:run.config.mode,limit:run.segmentEnd,usedRequests:run.usedRequests,requestLimit:run.config.requestLimit,usedBeforeFix:before.used,newAttempts:run.usedRequests-before.used,newFailedAttempts:rows.slice(before.used).filter(r=>r.status==='failed').length,newExhaustedRequests:run.requestLog.filter(r=>r.status==='failed'&&!before.failedRequests.some((old:{id:string})=>old.id===r.id)).length,preservedTenSuccessfulRequests:retained,repeatedSuccessfulCivsAtTick7:repeated.map(r=>r.id),actualAuditAttempts:rows.length,successAttempts:rows.filter(r=>r.status==='success').length,failedAttempts:rows.filter(r=>r.status==='failed').length,failedLogicalRequests:run.requestLog.filter(r=>r.status==='failed').map(({id,tick,error,attempts})=>({id,tick,error,attempts})),fallbacks:run.requestLog.filter(r=>r.status==='fallback').length,decisionSources:decisions.reduce((o,d)=>(o[d.source]=(o[d.source]??0)+1,o),{} as Record<string,number>),narratives:run.narratives.map(n=>({source:n.source,toTick:n.toTick,sections:n.sections.length,validRefs:n.sections.every(s=>s.eventIds.every(id=>run.world.events.some(e=>e.eventId===id)))})),error:run.error,narrativeError:run.narrativeError};
+await writeFile('output/feedback-real-validation.json',JSON.stringify(report,null,2));
+console.log(report);

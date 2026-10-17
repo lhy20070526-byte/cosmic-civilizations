@@ -1,0 +1,68 @@
+{
+  "runId": "c04ad4fe-c252-4964-83dd-e8ddca66ec83",
+  "tick": 1,
+  "status": "completed",
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "usedRequests": 4,
+  "requestLimit": 20,
+  "requests": [
+    {
+      "id": "c04ad4fe-c252-4964-83dd-e8ddca66ec83:persona:civ-1:0",
+      "kind": "personality",
+      "civilizationId": "civ-1",
+      "tick": 0,
+      "attempts": 1,
+      "status": "success",
+      "source": "llm"
+    },
+    {
+      "id": "c04ad4fe-c252-4964-83dd-e8ddca66ec83:persona:civ-2:1",
+      "kind": "personality",
+      "civilizationId": "civ-2",
+      "tick": 0,
+      "attempts": 1,
+      "status": "success",
+      "source": "llm"
+    },
+    {
+      "id": "c04ad4fe-c252-4964-83dd-e8ddca66ec83:decision:civ-2:2",
+      "kind": "decision",
+      "civilizationId": "civ-2",
+      "tick": 1,
+      "attempts": 1,
+      "status": "success",
+      "source": "llm"
+    },
+    {
+      "id": "c04ad4fe-c252-4964-83dd-e8ddca66ec83:human:1:civ-1:0",
+      "kind": "decision",
+      "civilizationId": "civ-1",
+      "tick": 1,
+      "attempts": 0,
+      "status": "success",
+      "source": "human"
+    },
+    {
+      "id": "c04ad4fe-c252-4964-83dd-e8ddca66ec83:narrative:1:0:4",
+      "kind": "narrative",
+      "tick": 1,
+      "attempts": 1,
+      "status": "success",
+      "source": "llm"
+    }
+  ],
+  "decisionSources": [
+    {
+      "civilization": "civ-1",
+      "source": "human",
+      "action": "wait"
+    },
+    {
+      "civilization": "civ-2",
+      "source": "llm",
+      "action": "explore"
+    }
+  ],
+  "narrativeSource": "llm"
+}
